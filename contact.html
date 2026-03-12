@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Foodies</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Framework Layout specific overrides for Contact Page */
+        body {
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 2%;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Container for navbar + content */
+        .main {
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background: white;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .nav .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav .nav-logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Contact Section Layout matching wireframe 5.0 */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .contact-left,
+        .contact-right {
+            flex: 1;
+            min-width: 300px;
+            padding: 4rem 3.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #334155;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title::before {
+            content: "- ";
+            color: #334155;
+        }
+
+        .section-title::after {
+            content: " -";
+            color: #334155;
+        }
+
+        /* Contact Information Details */
+        .contact-info-block {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info-block h4 {
+            font-size: 1rem;
+            color: #334155;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .contact-detail svg {
+            width: 18px;
+            height: 18px;
+            fill: #94a3b8;
+            margin-top: 2px;
+        }
+
+        /* Contact Form Styling */
+        .contact-right {
+            padding-top: 3rem;
+            /* visually aligns form floating block with the left headers */
+        }
+
+        .contact-form-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f1f5f9;
+        }
+
+        .contact-form-card .section-title {
+            margin-top: -4rem;
+            /* pull up header so it aligns with wireframe */
+            margin-bottom: 2rem;
+            position: absolute;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #334155;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .form-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+            /* Blue border focus to match wireframe btn */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background-color: #3b82f6;
+            /* Wireframe vibrant blue */
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Minimalist Footer */
+        .footer {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .socials svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Hide the global navbar and footer */
+        nav.navbar {
+            display: none !important;
+        }
+
+        footer {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .contact-right {
+                padding-top: 0;
+                padding-left: 3.5rem;
+            }
+
+            .contact-form-card .section-title {
+                position: relative;
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-left,
+            .contact-right {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="main">
+            <!-- Embedded Navbar -->
+            <nav class="nav">
+                <a href="index.html" class="nav-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--primary-color)">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    Foodiez<span>.</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About us</a>
+                    <a href="menu.html">Menu</a>
+                    <a href="order.html">Order</a>
+                    <a href="contact.html" class="active">Contact</a>
+                </div>
+            </nav>
+
+            <!-- Contact Layout -->
+            <div class="contact-container">
+
+                <!-- Left: Contact Details -->
+                <div class="contact-left">
+                    <h2 class="section-title">Contact Information</h2>
+
+                    <div class="contact-info-block">
+                        <h4>Call us</h4>
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                            </svg>
+                            <span>+94 772650813</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-block">
+                        <h4>Email</h4>
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                            <span>foodiez@.com</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-block">
+                        <h4>Address</h4>
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                            </svg>
+                            <span>123 Food Street,Kaluthara District<br>Sri Lanka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div class="contact-right" style="position:relative;">
+                    <h2 class="section-title" style="visibility:hidden">Contact Form</h2>
+                    <!-- Spacer for responsive flow -->
+
+                    <form class="contact-form-card" id="contact-form">
+                        <h2 class="section-title" style="margin-top: -6rem; margin-bottom:2.5rem">Contact Form</h2>
+
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-input" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-input" placeholder="Your Phone Number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" placeholder="Your Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-input" placeholder="Your Address">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input" placeholder="Your Message..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn"
+                            style="background-color: #3b82f6; border-radius: 4px;">Submit</button>
+                    </form>
+                </div>
+
+            </div> <!-- /contact-container -->
+        </div> <!-- /main -->
+
+        <!-- Minimalist Footer -->
+        <div class="footer">
+            <p>&copy; 2026 <strong>Website</strong>. All rights reserved.</p>
+
+            <div class="socials">
+                <a href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-1.1 0-2 .9-2 2v1h4l-1 3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25zM12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M21.582 6.186a2.665 2.665 0 0 0-1.875-1.884C18.053 3.868 12 3.868 12 3.868s-6.053 0-7.707.434a2.665 2.665 0 0 0-1.875 1.884C2 7.85 2 12 2 12s0 4.15.418 5.814a2.665 2.665 0 0 0 1.875 1.884C5.947 20.132 12 20.132 12 20.132s6.053 0 7.707-.434a2.665 2.665 0 0 0 1.875-1.884C22 16.15 22 12 22 12s0-4.15-.418-5.814zM9.99 15.228V8.773l6.502 3.227-6.502 3.228z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

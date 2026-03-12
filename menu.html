@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Foodies</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Framework Layout specific overrides for Menu Page */
+        body {
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 2%;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Container for navbar + content */
+        .main {
+            background-color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            background: white;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .nav .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav .nav-logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Menu Section Styles matching wireframe 3.0 */
+        .menu-header {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-header h2 {
+            display: inline-block;
+            font-size: 1.8rem;
+            color: #334155;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .menu-header h2::before,
+        .menu-header h2::after {
+            content: "-";
+            margin: 0 10px;
+            color: var(--primary-color);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 2rem;
+            padding: 2rem 3rem 4rem;
+        }
+
+        .menu-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .menu-img-wrapper {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: -50px;
+            /* Pulls the info card up over the image, matching wireframe */
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            background-color: #f1f5f9;
+        }
+
+        .menu-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-card:hover .menu-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .menu-info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 0 1rem;
+            /* Indents the info card from the image edges */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            border: 1px solid #f1f5f9;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .menu-card:hover .menu-info-card {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: #e2e8f0;
+        }
+
+        .menu-title {
+            font-size: 1.1rem;
+            color: #334155;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .menu-price {
+            font-size: 1.15rem;
+            color: #334155;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .menu-price span {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+
+        .menu-qty-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .menu-qty-label {
+            font-size: 0.9rem;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .menu-qty-select {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-family: inherit;
+            color: #334155;
+            outline: none;
+            background: white;
+        }
+
+        .menu-order-btn {
+            background-color: #cffafe;
+            /* Light cyan matching wireframe */
+            color: #0891b2;
+            border: none;
+            border-radius: 6px;
+            padding: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-order-btn:hover {
+            background-color: #22d3ee;
+            color: white;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 1rem 0 3rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .dot.active {
+            background-color: #334155;
+            border-color: #334155;
+        }
+
+        /* Minimalist Footer */
+        .footer {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .socials svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Hide the global navbar and footer */
+        nav.navbar {
+            display: none !important;
+        }
+
+        footer {
+            display: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .menu-info-card {
+                margin: 0 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="main">
+            <!-- Embedded Navbar -->
+            <nav class="nav">
+                <a href="index.html" class="nav-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--primary-color)">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    Foodiez<span>.</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About us</a>
+                    <a href="menu.html" class="active">Menu</a>
+                    <a href="order.html">Order</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </nav>
+
+            <!-- Menu Header -->
+            <div class="menu-header">
+                <h2>Our Food Menu</h2>
+            </div>
+
+            <!-- Grid of 15 Items -->
+            <div class="menu-grid">
+
+                <!-- Item 1 -->
+                <div class="menu-card food-card" data-id="1" data-name="Chilli Chicken Pizza" data-price="2900"
+                    data-img="https://thebakeoneclub.co.uk/wp-content/uploads/2023/02/Spicy_Chicken_Pizza.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://thebakeoneclub.co.uk/wp-content/uploads/2023/02/Spicy_Chicken_Pizza.jpg"
+                            alt="Chilli Chicken Pizza">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chilli Chicken Pizza</h3>
+                        <p class="menu-desc">A pizza topped with Spicy Chicken, Green Chillies, Onions & Mozzarella</p>
+                        <div class="menu-price"><span>Rs.</span> 2900</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-card food-card" data-id="2" data-name="Double Cheese Burger" data-price="590"
+                    data-img="https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg"
+                            alt="Cheese Burger">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Cheese Burger</h3>
+                        <p class="menu-desc">A savory, iconic sandwich featuring a grilled or pan-seared ground beef
+                            patty topped with a slice of melted cheese</p>
+                        <div class="menu-price"><span>Rs.</span> 590</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-card food-card" data-id="3" data-name="Butter Chicken Pasta" data-price="990"
+                    data-img="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800&auto=format&fit=crop"
+                            alt="Butter Chicken Pasta">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Butter Chicken Pasta</h3>
+                        <p class="menu-desc">Macaroni coated in velvety butter chicken gravy, paired with tender butter
+                            chicken, cheese sauce and fresh coriander.</p>
+                        <div class="menu-price"><span>Rs.</span> 990</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-card food-card" data-id="4" data-name="Grilled Chicken Salad"
+                    data-price="1200"
+                    data-img="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop"
+                            alt="Grilled Chicken Salad">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Grilled Chicken Salad</h3>
+                        <p class="menu-desc">Freshly mixed greens, cherry tomatoes, cucumbers, and tender grilled
+                            chicken breast tossed in balsamic vinaigrette.</p>
+                        <div class="menu-price"><span>Rs.</span> 1200</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="menu-card food-card" data-id="5" data-name="Chocolate Lava Cake" data-price="750"
+                    data-img="https://images.getrecipekit.com/20250325120225-how-20to-20make-20chocolate-20molten-20lava-20cake-20in-20the-20microwave.png?width=650&quality=90&">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.getrecipekit.com/20250325120225-how-20to-20make-20chocolate-20molten-20lava-20cake-20in-20the-20microwave.png?width=650&quality=90&"
+                            alt="Chocolate Lava Cake">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chocolate Lava Cake</h3>
+                        <p class="menu-desc">Warm chocolate cake with a gooey molten center, served with a scoop of
+                            vanilla bean ice cream.</p>
+                        <div class="menu-price"><span>Rs.</span> 750</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="menu-card food-card" data-id="6" data-name="Chicken Fried Rice" data-price="850"
+                    data-img="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=800&auto=format&fit=crop"
+                            alt="Chicken Fried Rice">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chicken Fried Rice</h3>
+                        <p class="menu-desc">Wok-tossed jasmine rice with tender chicken, eggs, mixed vegetables and our
+                            signature soy blend.</p>
+                        <div class="menu-price"><span>Rs.</span> 850</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="menu-card food-card" data-id="7" data-name="Iced Caramel Latte" data-price="450"
+                    data-img="https://images.unsplash.com/photo-1557142046-c704a3adf364?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1557142046-c704a3adf364?q=80&w=800&auto=format&fit=crop"
+                            alt="Iced Caramel Latte">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Iced Caramel Latte</h3>
+                        <p class="menu-desc">Cold espresso laid over milk and ice, topped with a rich caramel drizzle.
+                        </p>
+                        <div class="menu-price"><span>Rs.</span> 450</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="menu-card food-card" data-id="8" data-name="Mango Smoothie" data-price="400"
+                    data-img="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?q=80&w=800&auto=format&fit=crop"
+                            alt="Mango Smoothie">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Mango Smoothie</h3>
+                        <p class="menu-desc">Freshly blended mangoes with Greek yogurt and a touch of honey for a
+                            refreshing summer treat.</p>
+                        <div class="menu-price"><span>Rs.</span> 400</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="menu-card food-card" data-id="9" data-name="Spicy Tacos" data-price="650"
+                    data-img="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=800&auto=format&fit=crop"
+                            alt="Spicy Tacos">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Spicy Beef Tacos</h3>
+                        <p class="menu-desc">Three crispy corn tortillas loaded with spicy ground beef, fresh salsa, and
+                            sour cream.</p>
+                        <div class="menu-price"><span>Rs.</span> 650</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="menu-card food-card" data-id="10" data-name="Margherita Pizza" data-price="2200"
+                    data-img="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop"
+                            alt="Margherita Pizza">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Margherita Pizza</h3>
+                        <p class="menu-desc">Classic Italian pizza with San Marzano tomato sauce, fresh buffalo
+                            mozzarella, and basil leaves.</p>
+                        <div class="menu-price"><span>Rs.</span> 2200</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 11 -->
+                <div class="menu-card food-card" data-id="11" data-name="Pancakes" data-price="550"
+                    data-img="https://www.beyondthechickencoop.com/wp-content/uploads/2022/01/Blueberry-Pancakes.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.beyondthechickencoop.com/wp-content/uploads/2022/01/Blueberry-Pancakes.jpg"
+                            alt="Pancakes">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Blueberry Pancakes</h3>
+                        <p class="menu-desc">Fluffy buttermilk pancakes studded with blueberries, served with maple
+                            syrup and butter.</p>
+                        <div class="menu-price"><span>Rs.</span> 550</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 12 -->
+                <div class="menu-card food-card" data-id="12" data-name="Sushi Platter" data-price="2800"
+                    data-img="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=800&auto=format&fit=crop"
+                            alt="Sushi">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Premium Sushi Platter</h3>
+                        <p class="menu-desc">An assortment of 12 fresh nigiri and maki rolls, served with wasabi,
+                            ginger, and soy sauce.</p>
+                        <div class="menu-price"><span>Rs.</span> 2800</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 13 -->
+                <div class="menu-card food-card" data-id="13" data-name="French Fries" data-price="350"
+                    data-img="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop"
+                            alt="French Fries">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Crispy French Fries</h3>
+                        <p class="menu-desc">Golden, perfectly salted shoestring fries served hot straight from the
+                            fryer.</p>
+                        <div class="menu-price"><span>Rs.</span> 350</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 14 -->
+                <div class="menu-card food-card" data-id="14" data-name="Chicken Wings" data-price="950"
+                    data-img="https://images.unsplash.com/photo-1569691899455-88464f6d3ab1?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1569691899455-88464f6d3ab1?q=80&w=800&auto=format&fit=crop"
+                            alt="Chicken Wings">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">BBQ Chicken Wings</h3>
+                        <p class="menu-desc">6 pieces of bone-in chicken wings tossed in our sweet and tangy house BBQ
+                            sauce.</p>
+                        <div class="menu-price"><span>Rs.</span> 950</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 15 -->
+                <div class="menu-card food-card" data-id="15" data-name="Vegan Bowl" data-price="1100"
+                    data-img="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop"
+                            alt="Vegan Bowl">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Superfood Vegan Bowl</h3>
+                        <p class="menu-desc">Quinoa base topped with avocado, roasted chickpeas, kale, and a tahini
+                            lemon dressing.</p>
+                        <div class="menu-price"><span>Rs.</span> 1100</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+            </div> <!-- /menu-grid -->
+
+        </div> <!-- /main -->
+
+        <!-- Dots -->
+        <div class="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <!-- Minimalist Footer -->
+        <div class="footer">
+            <p>&copy; 2026 <strong>Website</strong>. All rights reserved.</p>
+
+            <div class="socials">
+                <a href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-1.1 0-2 .9-2 2v1h4l-1 3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25zM12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M21.582 6.186a2.665 2.665 0 0 0-1.875-1.884C18.053 3.868 12 3.868 12 3.868s-6.053 0-7.707.434a2.665 2.665 0 0 0-1.875 1.884C2 7.85 2 12 2 12s0 4.15.418 5.814a2.665 2.665 0 0 0 1.875 1.884C5.947 20.132 12 20.132 12 20.132s6.053 0 7.707-.434a2.665 2.665 0 0 0 1.875-1.884C22 16.15 22 12 22 12s0-4.15-.418-5.814zM9.99 15.228V8.773l6.502 3.227-6.502 3.228z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
