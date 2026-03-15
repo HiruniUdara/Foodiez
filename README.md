@@ -62,7 +62,7 @@ Scalable and lightweight icons for UI elements.
 # 💻 How to Run
 
 1. Clone or download the repository.
- https://github.com/HiruniUdara/foodiez.git
+ https://github.com/HiruniUdara/Foodiez.git
 
 3. Open the project folder.
 
