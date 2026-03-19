@@ -1,51 +1,44 @@
 # 🍔 Foodiez | Food Delivery Management System
 
-An interactive web application designed for users to browse food menus, add items to a cart, and simulate placing food orders online.  
-Developed as a mini-project for a *Web Design course*, this platform demonstrates modern front-end development concepts including responsive design, dynamic cart management, and interactive UI components.
+An interactive web application designed for users to browse food menus, add items to a cart, and simulate placing food orders online.
+
+Developed as a mini-project for a **Web Design course**, this platform demonstrates modern front-end development concepts including **responsive design, dynamic cart management, and interactive UI components**.
 
 ---
 
-# 🚀 Key Features
+## 🚀 Key Features
 
-*Dynamic Cart System*  
-Users can add food items to a cart, update quantities, and remove items with real-time subtotal calculations using JavaScript.
+### Dynamic Cart System
+Users can add food items to a cart, update quantities, and remove items with **real-time subtotal calculations** using JavaScript.
 
-*Interactive Food Menu*  
-Food items are displayed with images, descriptions, and prices, allowing users to easily browse meals and select quantities.
+### Interactive Food Menu
+Food items are displayed with **images, descriptions, and prices**, allowing users to easily browse meals and select quantities.
 
-*Order Management Page*  
-A dedicated order page allows users to review their selected items before final confirmation.
+### Order Management Page
+A dedicated **order page** allows users to review their selected items before final confirmation.
 
-*Premium Hero Carousel*  
-A visually engaging homepage carousel showcasing featured dishes using Bootstrap.
+### Premium Hero Carousel
+A visually engaging **homepage carousel** showcasing featured dishes using Bootstrap.
 
-*Form Validation*  
-JavaScript and Bootstrap validation ensure that required fields (Name, Email, Message) are completed correctly.
+### Form Validation
+JavaScript and Bootstrap validation ensure that required fields (**Name, Email, Message**) are completed correctly.
 
 ---
 
-# 🛠 Technologies Used
+## 🛠 Technologies Used
 
-*HTML5*  
-Semantic structure and layout of the website.
+- **HTML5**: Semantic structure and layout of the website  
+- **CSS3**: Custom styling, responsive design, and visual enhancements  
+- **Bootstrap 5**: Grid system, responsive layout utilities, and carousel components  
+- **JavaScript (ES6)**: Dynamic cart functionality, DOM manipulation, and form validation  
+- **Google Fonts (Poppins)**: Modern and clean typography  
+- **SVG Icons**: Scalable and lightweight icons  
 
-*CSS3*  
-Custom styling, responsive design, and visual enhancements.
+---
 
-*Bootstrap 5*  
-Grid system, responsive layout utilities, and carousel components.
+## 📁 Project Structure
 
-*JavaScript (ES6)*  
-Dynamic cart functionality, DOM manipulation, and form validation.
-
-*Google Fonts (Poppins)*  
-Modern and clean typography.
-
-*SVG Icons*  
-Scalable and lightweight icons for UI elements.
-
-
-# 📁 Project Structure
+## 📁 Project Structure
 
 *Foodiez/*  
 │  
@@ -54,10 +47,13 @@ Scalable and lightweight icons for UI elements.
 ├── *menu.html* — Food menu with item listings  
 ├── *order.html* — Cart management and order summary  
 ├── *contact.html* — Contact form and order confirmation  
+├── *login.html* — Unified Login / Register page  
+├── *confirmation.html* — Final order success page  
 │  
 ├── *script.js* — JavaScript logic for cart functionality and interactions  
 ├── *style.css* — Custom styling and responsive layout  
-└── *proposal.txt* — Original project proposal document
+└── *proposal.txt* — Original project proposal document  
+
 
 # 💻 How to Run
 
@@ -100,7 +96,7 @@ Planned improvements for the next phase include:
 # 🎓 Academic Credits
 
 *Project:* Foodiez – Food Delivery Management System  
-*Course:* Web Design / Web Development  
+*Course:* COM 2303 - Web Design
 *University:* Rajarata University of Sri Lanka  
 
 ---
