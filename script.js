@@ -1,13 +1,22 @@
-// State Management
+/* 
+   ==========================================================================
+   STATE MANAGEMENT
+   Handles the persistent cart data using localStorage.
+   ========================================================================== 
+*/
 let cart = JSON.parse(localStorage.getItem('foodDeliveryCart')) || [];
 
-// DOM Elements
+/* 
+   ==========================================================================
+   DOM INITIALIZATION
+   Sets up event listeners and page-specific logic once the DOM is ready.
+   ========================================================================== 
+*/
 document.addEventListener('DOMContentLoaded', () => {
     updateCartIcon();
     setupNavigation();
 
-    // Specific page initializations
-    // Specific page initializations
+    /* --- Page-Specific Initializations --- */
     if (document.getElementById('order-container')) {
         renderCartPage();
         setupOrderForm();
@@ -17,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setupContactForm();
     }
 
-    // Setup Add to Cart buttons on menu/home
+    /* --- Add to Cart Integration --- */
     const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
     addToCartBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -35,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             addToCart({ id, name, price, img, quantity: qty });
 
-            // Redirect to Order Page
+            // Smooth redirect to the checkout experience
             window.location.href = 'order.html';
         });
     });
 
-    // Setup Qty Controls on food cards
+    /* --- Product Quantity Controls --- */
     const qtyControls = document.querySelectorAll('.qty-controls');
     qtyControls.forEach(control => {
         const minusBtn = control.querySelector('.qty-minus');
@@ -60,13 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Navigation Toggle
+/* 
+   ==========================================================================
+   NAVIGATION & MOBILE MENU
+   Toggles the navigation drawer on mobile viewports.
+   ========================================================================== 
+*/
 function setupNavigation() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
         });
     }
@@ -160,15 +175,14 @@ function renderCartPage() {
 
         const itemEl = document.createElement('div');
         itemEl.className = 'order-item-card';
-        itemEl.style.position = 'relative';
         itemEl.innerHTML = `
             <div class="order-item-img">
               <img src="${item.img}" alt="${item.name}">
             </div>
             <div class="order-item-details">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div class="order-item-header">
                   <h3 class="order-item-title">${item.name}</h3>
-                  <button onclick="removeFromCart(${index})" style="background: none; border: none; cursor: pointer; color: #ef4444; padding: 5px;">
+                  <button class="remove-item-btn" onclick="removeFromCart(${index})">
                       <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                   </button>
               </div>
@@ -178,10 +192,10 @@ function renderCartPage() {
               <div class="order-item-divider"></div>
               <div class="order-item-bottom">
                 <div class="order-item-price"><span>Rs.</span> ${item.price}</div>
-                <div class="order-item-qty" style="display: flex; align-items: center; gap: 10px; border: none; padding: 0; background: transparent;">
-                    <button onclick="updateCartItemQty(${index}, -1)" style="width: 28px; height: 28px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; color: #334155;">-</button>
-                    <span style="font-weight: 600; min-width: 20px; text-align: center;">${item.quantity}</span>
-                    <button onclick="updateCartItemQty(${index}, 1)" style="width: 28px; height: 28px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; color: #334155;">+</button>
+                <div class="order-qty-controls">
+                    <button class="qty-ctrl-btn" onclick="updateCartItemQty(${index}, -1)">-</button>
+                    <span class="qty-value">${item.quantity}</span>
+                    <button class="qty-ctrl-btn" onclick="updateCartItemQty(${index}, 1)">+</button>
                 </div>
               </div>
             </div>
@@ -218,6 +232,23 @@ function placeOrder() {
         return;
     }
 
+    // Validate delivery address
+    const addressInput = document.getElementById('delivery-address');
+    const addressError = document.getElementById('address-error');
+    if (addressInput) {
+        const address = addressInput.value.trim();
+        if (!address) {
+            addressInput.classList.add('error');
+            if (addressError) addressError.classList.add('visible');
+            addressInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            addressInput.focus();
+            return;
+        } else {
+            addressInput.classList.remove('error');
+            if (addressError) addressError.classList.remove('visible');
+        }
+    }
+
     const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
     if (!paymentMethod) {
         showToast('Please select a payment method');
@@ -230,12 +261,10 @@ function placeOrder() {
         subtotal += item.price * item.quantity;
     });
 
-    if (paymentMethod.value === "Cash on Delivery" || paymentMethod.value === "Credit/Debit Card" || paymentMethod.value === "PayPal") {
-        // Redirect to contact page with the total bill
-        window.location.href = `contact.html?total=${subtotal}&payment=${encodeURIComponent(paymentMethod.value)}`;
-    } else {
-        showOrderPopup();
-    }
+    const address = addressInput ? encodeURIComponent(addressInput.value.trim()) : '';
+
+    // Redirect to dedicated confirmation page
+    window.location.href = `confirmation.html?total=${subtotal}&payment=${encodeURIComponent(paymentMethod.value)}&address=${address}`;
 }
 
 // Form Validation

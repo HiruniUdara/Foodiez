@@ -1,23 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
+/* 
+   ==========================================================================
+   ROOT VARIABLES
+   These variables define the core color palette, shadows, and transitions 
+   used across the entire application for consistent branding and UI.
+   ========================================================================== */
 :root {
-    --primary-color: red;
-    --secondary-color: orange;
-    --accent-color: darkred;
-    --bg-color: white;
-    --text-dark: black;
-    --text-light: gray;
-    --white: white;
-    --danger: red;
-    --success: green;
-    --card-shadow: 0 4px 12px lightgray;
-    --hover-shadow: 0 8px 24px tan;
-    --transition: all 0.3s ease;
+    /* Brand Colors */
+    --primary-color: #dc2626;    /* Vibrant Red */
+    --secondary-color: #fb923c;  /* Warm Orange */
+    --accent-color: #991b1b;     /* Deep Maroon */
+    
+    /* Layout Colors */
+    --bg-color: #ffffff;
+    --text-dark: #1e293b;        /* Slate 800 */
+    --text-light: #64748b;       /* Slate 500 */
+    --white: #ffffff;
+    
+    /* Status Colors */
+    --danger: #ef4444;
+    --success: #22c55e;
+    
+    /* Effects */
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 
+   ==========================================================================
+   BASE STYLES & RESET
+   Ensures a consistent cross-browser foundation and sets the default 
+   typography for the site.
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -28,8 +46,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 2%;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .wrapper {
@@ -40,6 +58,7 @@ body {
     flex-direction: column;
     position: relative;
     flex: 1;
+    box-sizing: border-box;
 }
 
 .main {
@@ -49,13 +68,12 @@ body {
     flex: 1;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* 
+   ==========================================================================
+   TYPOGRAPHY & GLOBAL LINKS
+   Consistent font weights and color behaviors for a cohesive look.
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     color: var(--text-dark);
 }
@@ -63,13 +81,18 @@ h6 {
 a {
     text-decoration: none;
     color: inherit;
+    transition: var(--transition);
 }
 
 ul {
     list-style: none;
 }
 
-/* Button Styles */
+/* 
+   ==========================================================================
+   UI COMPONENTS - BUTTONS
+   Reusable button variants for the primary calls to action.
+   ========================================================================== */
 .btn {
     display: inline-block;
     padding: 12px 28px;
@@ -101,17 +124,23 @@ ul {
     color: var(--white);
 }
 
-/* Navigation */
+/* 
+   ==========================================================================
+   MAIN NAVIGATION (NAVBAR)
+   Sticky header with logo, standard navigation links, and cart icon.
+   ========================================================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2.5rem;
+    padding: 1rem 1.5rem;
     background-color: var(--white);
     border-bottom: 1px solid #f1f5f9;
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .nav-logo {
@@ -153,6 +182,7 @@ ul {
     gap: 1.5rem;
 }
 
+/* Shopping Cart Icon & Badge */
 .cart-icon-container {
     position: relative;
     cursor: pointer;
@@ -161,7 +191,6 @@ ul {
 .cart-icon-container svg {
     width: 28px;
     height: 28px;
-    fill: var(--text-dark);
     transition: var(--transition);
 }
 
@@ -185,6 +214,7 @@ ul {
     align-items: center;
 }
 
+/* Mobile Menu Trigger */
 .menu-toggle {
     display: none;
     cursor: pointer;
@@ -232,8 +262,11 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin: 2rem 0 3rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 footer p {
@@ -397,17 +430,26 @@ footer p {
         width: 100%;
         background-color: var(--white);
         flex-direction: column;
+        gap: 0;
         padding: 0;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
         text-align: center;
         box-shadow: 0 10px 10px whitesmoke;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .nav-links a {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #f8fafc;
+        display: block;
+        width: 100%;
     }
 
     .nav-links.active {
-        max-height: 400px;
-        padding: 2rem 0;
+        max-height: 500px;
+        padding: 0.5rem 0;
     }
 
     .section-header h2 {
@@ -425,6 +467,7 @@ footer p {
     text-align: center;
     color: white;
     overflow: hidden;
+    width: 100%;
 }
 
 .hero-bg {
@@ -501,6 +544,8 @@ footer p {
     gap: 2rem;
     padding: 3rem 2.5rem;
     background-color: white;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .feature-card {
@@ -693,7 +738,9 @@ footer p {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem 2rem;
-    padding: 2rem 3rem 4rem;
+    padding: 2rem 2rem 4rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .menu-card {
@@ -1151,22 +1198,44 @@ textarea.form-input {
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* Responsive Overrides */
+/* =====================
+   Responsive Breakpoints
+   ===================== */
+
+/* Tablet landscape / large tablet */
 @media (max-width: 1024px) {
     .menu-grid {
         grid-template-columns: repeat(2, 1fr);
+        padding: 2rem 1.5rem 4rem;
+    }
+
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 3rem 2rem;
+    }
+
+    .about-section {
+        gap: 3rem;
+        padding: 3rem 2rem;
     }
 }
 
+/* Tablet portrait */
 @media (max-width: 900px) {
     .about-section {
         flex-direction: column;
-        padding: 3rem 2rem;
+        padding: 3rem 1.5rem;
         gap: 2rem;
+    }
+
+    .about-img {
+        max-height: 280px;
+        width: 100%;
     }
 
     .testimonials-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
     .contact-container {
@@ -1174,18 +1243,95 @@ textarea.form-input {
     }
 
     .contact-right {
-        padding-top: 0;
+        padding: 0 1.5rem 3rem;
+    }
+
+    .contact-left {
+        padding: 3rem 1.5rem 1rem;
     }
 }
 
+/* Mobile landscape / large phone */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    body {
+        padding: 0;
     }
 
-    .features,
+    .wrapper {
+        margin-top: 0;
+        border-radius: 0;
+    }
+
+    .navbar {
+        padding: 0.8rem 1.2rem;
+        position: fixed;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+
+    .menu-toggle {
+        display: flex;
+        z-index: 1001;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .hero {
+        height: 350px;
+        border-radius: 0;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        padding: 2.5rem 1.2rem;
+        gap: 2rem;
+    }
+
     .menu-grid {
         grid-template-columns: 1fr;
+        padding: 1.5rem 1rem 4rem;
     }
 
     .order-item-card {
@@ -1195,40 +1341,53 @@ textarea.form-input {
 
     .order-item-img {
         width: 100%;
-        height: 180px;
+        height: 160px;
         border-right: none;
         border-bottom: 1px solid #e2e8f0;
     }
 
-    .order-item-card::before {
-        width: 100%;
-        height: 4px;
-    }
-
     .order-summary-section {
-        align-items: center;
+        padding: 0 1.2rem;
+        align-items: stretch;
     }
 
-    .add-cart-btn {
-        width: 100%;
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1rem;
+        gap: 1.5rem;
+        margin-bottom: 0;
     }
 }
 
+/* Small mobile */
 @media (max-width: 480px) {
-    .testimonials-grid {
-        grid-template-columns: 1fr;
+    .hero {
+        height: 300px;
     }
 
-    .about-text h2 {
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .hero-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar {
+        padding: 0.7rem 1rem;
+    }
+
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+
+    .section-header h2 {
         font-size: 1.8rem;
-    }
-
-    .menu-info-card {
-        margin: 0 0.5rem;
-    }
-
-    .contact-left,
-    .contact-right {
-        padding: 2.5rem 1.5rem;
     }
 }
