@@ -1,0 +1,210 @@
+<?php
+session_start();
+/**
+ * Order Page & Handler.
+ * Displays the cart and processes order placement.
+ */
+
+// Include dependencies
+require_once 'includes/db.php';
+require_once 'includes/functions.php';
+
+// Security: Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error'] = "Please login to place an order.";
+    header("Location: login.php");
+    exit();
+}
+
+// Handle Order Placement (POST)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id'];
+    $food_item = sanitize_input($_POST['food_item']);
+    $quantity = (int)$_POST['quantity'];
+    $total_price = (float)$_POST['total_price'];
+
+    if (empty($food_item) || $quantity <= 0 || $total_price <= 0) {
+        $_SESSION['error'] = "Invalid order details.";
+        header("Location: order.php");
+        exit();
+    }
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO orders (user_id, food_item, quantity, total_price) VALUES (?, ?, ?, ?)");
+        if ($stmt->execute([$user_id, $food_item, $quantity, $total_price])) {
+            $_SESSION['success'] = "Order placed successfully!";
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Failed to place order.";
+            header("Location: order.php");
+            exit();
+        }
+    } catch (PDOException $e) {
+        $_SESSION['error'] = "Database error: " . $e->getMessage();
+        header("Location: order.php");
+        exit();
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List | Foodiez</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS from order_old.html */
+        .order-summary-section { align-items: stretch; }
+        .action-buttons { display: flex; gap: 1rem; width: 100%; justify-content: flex-end; }
+        .order-back-btn { background-color: transparent; color: #475569; border: 1px solid #cbd5e1; border-radius: 6px; padding: 14px 30px; font-size: 1rem; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; }
+        .order-back-btn:hover { border-color: #dc2626; color: #dc2626; background: #fff5f5; }
+        .order-confirm-btn { background-color: var(--primary-color); color: white; border: none; border-radius: 6px; padding: 14px 40px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; min-width: 200px; font-family: 'Poppins', sans-serif; }
+        .order-confirm-btn:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(220, 38, 38, 0.3); }
+        .payment-section { width: 100%; margin-bottom: 2rem; padding: 1.5rem; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; flex-direction: column; gap: 1rem; box-sizing: border-box; }
+        .payment-section h3 { font-size: 1.1rem; color: #334155; margin-bottom: 0.5rem; font-weight: 600; }
+        .payment-option { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .payment-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--primary-color); cursor: pointer; }
+        .payment-option label { font-size: 1rem; color: #475569; cursor: pointer; font-weight: 500; }
+        .order-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+        .remove-item-btn { background: none; border: none; cursor: pointer; color: #ef4444; padding: 5px; flex-shrink: 0; }
+        .remove-item-btn:hover { color: #b91c1c; }
+        .order-qty-controls { display: flex; align-items: center; gap: 10px; }
+        .qty-ctrl-btn { width: 28px; height: 28px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; color: #334155; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+        .qty-ctrl-btn:hover { border-color: #dc2626; color: #dc2626; }
+        .qty-value { font-weight: 600; min-width: 20px; text-align: center; }
+        .address-field { display: flex; flex-direction: column; gap: 4px; }
+        .address-field input { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: #334155; background: white; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; }
+        .address-field input:focus { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08); }
+        .address-field input.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+        .address-error { display: none; color: #ef4444; font-size: 0.82rem; margin: 2px 0 0; }
+        .address-error.visible { display: block; }
+        @media (max-width: 768px) { .action-buttons { flex-direction: column; justify-content: stretch; } .order-back-btn, .order-confirm-btn { width: 100%; min-width: unset; text-align: center; } .order-summary-section { padding: 0 1rem; } .payment-section { padding: 1.2rem; } }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="main">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <a href="index.html" class="nav-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--primary-color)">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    Foodiez<span>.</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="menu.html">Menu</a>
+                    <a href="order.php" class="active">Order</a>
+                    <a href="contact.php">Contact</a>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <a href="dashboard.php">Dashboard</a>
+                        <a href="auth/logout.php" style="color: #dc2626;">Logout</a>
+                    <?php else: ?>
+                        <a href="login.php">Login</a>
+                    <?php endif; ?>
+                </div>
+            </nav>
+
+            <div class="order-header">
+                <h2>Order List</h2>
+            </div>
+
+            <?php if(isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger mx-4" style="border-radius:10px;">
+                    <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                </div>
+            <?php endif; ?>
+
+            <div id="order-container" class="order-list">
+                <!-- Items will be rendered by script.js -->
+            </div>
+
+            <div class="order-summary-section">
+                <!-- Hidden form for order submission -->
+                <form id="order-submit-form" action="order.php" method="POST" style="display:none;">
+                    <input type="hidden" name="food_item" id="hidden-food-item">
+                    <input type="hidden" name="quantity" id="hidden-quantity">
+                    <input type="hidden" name="total_price" id="hidden-total-price">
+                </form>
+
+                <div class="payment-section">
+                    <h3>Delivery Address <span style="color:#dc2626;">*</span></h3>
+                    <div class="address-field">
+                        <input type="text" id="delivery-address" placeholder="House No., Street, City..." required>
+                        <p class="address-error" id="address-error">⚠ Please enter your delivery address.</p>
+                    </div>
+                </div>
+
+                <div class="payment-section">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-option">
+                        <input type="radio" id="cash" name="payment_method" value="Cash on Delivery" checked>
+                        <label for="cash">Cash on Delivery</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="card" name="payment_method" value="Credit/Debit Card">
+                        <label for="card">Credit / Debit Card</label>
+                    </div>
+                </div>
+
+                <div class="order-total-display">
+                    <span class="label">Total :</span>
+                    <span class="amount" id="total-price">Rs. 0</span>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="menu.html" class="order-back-btn">Back to Menu</a>
+                    <button class="order-confirm-btn" id="confirm-order-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2026 <strong>Foodiez.</strong> All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Override or extend the placeOrder logic to use our PHP backend
+        document.getElementById('confirm-order-btn').addEventListener('click', function() {
+            // Get cart data from localStorage (shared with script.js)
+            const cartData = JSON.parse(localStorage.getItem('foodDeliveryCart')) || [];
+            if (cartData.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Validate address
+            const address = document.getElementById('delivery-address').value.trim();
+            if (!address) {
+                document.getElementById('address-error').classList.add('visible');
+                return;
+            }
+
+            // Prepare summary for DB
+            const foodItems = cartData.map(item => item.name).join(', ');
+            const totalQty = cartData.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            // Populate hidden form
+            document.getElementById('hidden-food-item').value = foodItems;
+            document.getElementById('hidden-quantity').value = totalQty;
+            document.getElementById('hidden-total-price').value = totalPrice;
+
+            // Clear cart from local storage before submission
+            localStorage.removeItem('foodDeliveryCart');
+
+            // Submit form
+            document.getElementById('order-submit-form').submit();
+        });
+    </script>
+</body>
+</html>

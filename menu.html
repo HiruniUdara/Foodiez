@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Foodies</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="main">
+            <!-- Centralized Navbar -->
+            <nav class="navbar">
+                <a href="index.html" class="nav-logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--primary-color)">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                    Foodiez<span>.</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="menu.html" class="active">Menu</a>
+                    <a href="order.php">Order</a>
+                    <a href="contact.php">Contact</a>
+                    <a href="login.php">Login</a>
+                </div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+
+            <!-- Menu Header -->
+            <div class="menu-header">
+                <h2>Our Food Menu</h2>
+            </div>
+
+            <!-- Grid of 15 Items -->
+            <div class="menu-grid">
+
+                <!-- Item 1 -->
+                <div class="menu-card food-card" data-id="1" data-name="Chilli Chicken Pizza" data-price="2900"
+                    data-img="https://thebakeoneclub.co.uk/wp-content/uploads/2023/02/Spicy_Chicken_Pizza.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://thebakeoneclub.co.uk/wp-content/uploads/2023/02/Spicy_Chicken_Pizza.jpg"
+                            alt="Chilli Chicken Pizza">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chilli Chicken Pizza</h3>
+                        <p class="menu-desc">A pizza topped with Spicy Chicken, Green Chillies, Onions & Mozzarella</p>
+                        <div class="menu-price"><span>Rs.</span> 2900</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-card food-card" data-id="2" data-name="Double Cheese Burger" data-price="590"
+                    data-img="https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg"
+                            alt="Cheese Burger">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Cheese Burger</h3>
+                        <p class="menu-desc">A savory, iconic sandwich featuring a grilled or pan-seared ground beef
+                            patty topped with a slice of melted cheese</p>
+                        <div class="menu-price"><span>Rs.</span> 590</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-card food-card" data-id="3" data-name="Butter Chicken Pasta" data-price="990"
+                    data-img="https://www.gohealthyeverafter.com/wp-content/uploads/2024/03/Butter-chicken-pasta-27.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.gohealthyeverafter.com/wp-content/uploads/2024/03/Butter-chicken-pasta-27.jpg"
+                            alt="Butter Chicken Pasta">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Butter Chicken Pasta</h3>
+                        <p class="menu-desc">Macaroni coated in velvety butter chicken gravy, paired with tender butter
+                            chicken, cheese sauce and fresh coriander.</p>
+                        <div class="menu-price"><span>Rs.</span> 990</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="menu-card food-card" data-id="4" data-name="Chicken Fried Rice" data-price="850"
+                    data-img="https://www.yummyfoodrecipes.com/resources/picture/org/Chicken-Fried-Rice.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.yummyfoodrecipes.com/resources/picture/org/Chicken-Fried-Rice.jpg"
+                            alt="Chicken Fried Rice">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chicken Fried Rice</h3>
+                        <p class="menu-desc">Wok-tossed jasmine rice with tender chicken, eggs, mixed vegetables and our
+                            signature soy blend.</p>
+                        <div class="menu-price"><span>Rs.</span> 850</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="menu-card food-card" data-id="5" data-name="Grilled Chicken Salad" data-price="1200"
+                    data-img="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg"
+                            alt="Grilled Chicken Salad">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Grilled Chicken Salad</h3>
+                        <p class="menu-desc">Freshly mixed greens, cherry tomatoes, cucumbers, and tender grilled
+                            chicken breast tossed in balsamic vinaigrette.</p>
+                        <div class="menu-price"><span>Rs.</span> 1200</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+
+                <!-- Item 6 -->
+                <div class="menu-card food-card" data-id="6" data-name="Chicken Biryani" data-price="1100"
+                    data-img="https://www.spiceandcolour.com/wp-content/uploads/2020/06/receta-presentacion-biryani-de-pollo-01.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.spiceandcolour.com/wp-content/uploads/2020/06/receta-presentacion-biryani-de-pollo-01.jpg"
+                            alt="Chicken Biryani">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chicken Biryani</h3>
+                        <p class="menu-desc">Fragrant basmati rice layered with tender spiced chicken, crispy fried
+                            onions, mint, coriander leaves,
+                            and traditional aromatic spices.
+                        </p>
+                        <div class="menu-price"><span>Rs.</span> 1100</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="menu-card food-card" data-id="7" data-name="Chicken Noodles" data-price="700"
+                    data-img="https://thatspicychick.com/wp-content/uploads/2024/04/Hoisin-Sauce-Chicken-Noodles-chopsticks.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://thatspicychick.com/wp-content/uploads/2024/04/Hoisin-Sauce-Chicken-Noodles-chopsticks.jpg"
+                            alt="Chicken Noodles">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chicken Noodles</h3>
+                        <p class="menu-desc">Stir-fried noodles with juicy chicken pieces, fresh vegetables, and savory
+                            soy-garlic sauce for a flavorful taste.</p>
+                        <div class="menu-price"><span>Rs.</span> 700</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+
+                <!-- Item 8 -->
+                <div class="menu-card food-card" data-id="8" data-name="Cheese Pizza" data-price="2050"
+                    data-img="https://static.vecteezy.com/system/resources/thumbnails/039/333/423/small/ai-generated-cheesy-bacon-pizza-slice-lifted-on-wooden-background-photo.jpeg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/039/333/423/small/ai-generated-cheesy-bacon-pizza-slice-lifted-on-wooden-background-photo.jpeg"
+                            alt="Cheese Pizza">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Cheese Pizza</h3>
+                        <p class="menu-desc">Crispy pizza base topped with rich tomato sauce and melted mozzarella
+                            cheese.</p>
+                        <div class="menu-price"><span>Rs.</span> 2050</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="menu-card food-card" data-id="9" data-name="Margherita Pizza" data-price="2200"
+                    data-img="https://www.heart.org/-/media/AHA/Recipe/Recipe-Images/Classic-Margherita-Pizza-with-Whole-Wheat-Pizza-Crust.jpg?h=922&w=1200&sc_lang=en&hash=BC11D7BCD33CFAD57790BB8779E746CF">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.heart.org/-/media/AHA/Recipe/Recipe-Images/Classic-Margherita-Pizza-with-Whole-Wheat-Pizza-Crust.jpg?h=922&w=1200&sc_lang=en&hash=BC11D7BCD33CFAD57790BB8779E746CF"
+                            alt="Margherita Pizza">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Margherita Pizza</h3>
+                        <p class="menu-desc">Classic Italian pizza with San Marzano tomato sauce, fresh buffalo
+                            mozzarella, and basil leaves.</p>
+                        <div class="menu-price"><span>Rs.</span> 2200</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="menu-card food-card" data-id="10" data-name="Sushi Platter" data-price="1800"
+                    data-img="https://img.freepik.com/premium-photo/sushi-set-traditional-japanese-cuisine-premium-sushi-decorated-elegant-surroundings_295969-238.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://img.freepik.com/premium-photo/sushi-set-traditional-japanese-cuisine-premium-sushi-decorated-elegant-surroundings_295969-238.jpg"
+                            alt="Sushi">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Premium Sushi Platter</h3>
+                        <p class="menu-desc">An assortment of 12 fresh nigiri and maki rolls, served with wasabi,
+                            ginger, and soy sauce.</p>
+                        <div class="menu-price"><span>Rs.</span> 1800</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 11 -->
+                <div class="menu-card food-card" data-id="11" data-name="Pancakes" data-price="550"
+                    data-img="https://www.beyondthechickencoop.com/wp-content/uploads/2022/01/Blueberry-Pancakes.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.beyondthechickencoop.com/wp-content/uploads/2022/01/Blueberry-Pancakes.jpg"
+                            alt="Pancakes">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Blueberry Pancakes</h3>
+                        <p class="menu-desc">Fluffy buttermilk pancakes studded with blueberries, served with maple
+                            syrup and butter.</p>
+                        <div class="menu-price"><span>Rs.</span> 550</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 12 -->
+                <div class="menu-card food-card" data-id="12" data-name="Chocolate Lava Cake" data-price="750"
+                    data-img="https://images.getrecipekit.com/20250325120225-how-20to-20make-20chocolate-20molten-20lava-20cake-20in-20the-20microwave.png?width=650&quality=90&">
+                    <div class="menu-img-wrapper">
+                        <img src="https://images.getrecipekit.com/20250325120225-how-20to-20make-20chocolate-20molten-20lava-20cake-20in-20the-20microwave.png?width=650&quality=90&"
+                            alt="Chocolate Lava Cake">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Chocolate Lava Cake</h3>
+                        <p class="menu-desc">Warm chocolate cake with a gooey molten center, served with a scoop of
+                            vanilla bean ice cream.</p>
+                        <div class="menu-price"><span>Rs.</span> 750</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Item 13 -->
+                <div class="menu-card food-card" data-id="13" data-name="French Fries" data-price="350"
+                    data-img="https://www.recipetineats.com/tachyon/2022/09/Fries-with-rosemary-salt_1.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.recipetineats.com/tachyon/2022/09/Fries-with-rosemary-salt_1.jpg"
+                            alt="French Fries">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Crispy French Fries</h3>
+                        <p class="menu-desc">Golden, perfectly salted shoestring fries served hot straight from the
+                            fryer.</p>
+                        <div class="menu-price"><span>Rs.</span> 350</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+                <!-- Item 14 -->
+                <div class="menu-card food-card" data-id="14" data-name="Chicken Wings" data-price="950"
+                    data-img="https://www.budgetbytes.com/wp-content/uploads/2023/08/BBQ-Wings-V1.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://www.budgetbytes.com/wp-content/uploads/2023/08/BBQ-Wings-V1.jpg"
+                            alt="Chicken Wings">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">BBQ Chicken Wings</h3>
+                        <p class="menu-desc">6 pieces of bone-in chicken wings tossed in our sweet and tangy house BBQ
+                            sauce.</p>
+                        <div class="menu-price"><span>Rs.</span> 950</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+                </div>
+
+
+                <!-- Item 15 -->
+                <div class="menu-card food-card" data-id="8" data-name="Mango Smoothie" data-price="400"
+                    data-img="https://cookwithrenu.com/wp-content/uploads/2022/06/2-Ingredients-Mango-Yogurt-Smoothie_-Featured-Image.jpg">
+                    <div class="menu-img-wrapper">
+                        <img src="https://cookwithrenu.com/wp-content/uploads/2022/06/2-Ingredients-Mango-Yogurt-Smoothie_-Featured-Image.jpg"
+                            alt="Mango Smoothie">
+                    </div>
+                    <div class="menu-info-card">
+                        <h3 class="menu-title">Mango Smoothie</h3>
+                        <p class="menu-desc">Freshly blended mangoes with Greek yogurt and a touch of honey for a
+                            refreshing summer treat.</p>
+                        <div class="menu-price"><span>Rs.</span> 400</div>
+                        <div class="menu-qty-row">
+                            <span class="menu-qty-label">Qty:</span>
+                            <select class="menu-qty-select qty-input">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <button class="menu-order-btn add-to-cart-btn">Order Now</button>
+                    </div>
+
+
+
+                </div> <!-- /menu-grid -->
+
+            </div> <!-- /main -->
+
+
+            <!-- Centralized Footer -->
+            <footer>
+                <p>&copy; 2026 <strong>Foodiez.</strong> All rights reserved.</p>
+
+                <div class="socials">
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-1.1 0-2 .9-2 2v1h4l-1 3h-3v6.8c4.56-.93 8-4.96 8-9.8z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25zM12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                </div>
+            </footer>
+
+        </div>
+
+        <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
